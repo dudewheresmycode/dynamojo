@@ -48,7 +48,17 @@ var db = {
 
     docClient.query(params, function(err, data) {
       if(err){ callback(err); return; }
-      var item = data.hasOwnProperty('Items') ? data.Items[0] : null;
+      var item = data && data.hasOwnProperty('Items') ? data.Items[0] : null;
+      callback(err, item);
+    });
+  },
+  list: function(table, callback){
+    var params = {
+      TableName: table
+    };
+    docClient.query(params, function(err, data) {
+      if(err){ callback(err); return; }
+      var item = data && data.hasOwnProperty('Items') ? data.Items : null;
       callback(err, item);
     });
   },
