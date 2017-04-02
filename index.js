@@ -4,12 +4,11 @@
 var AWS = require('aws-sdk');
 var dynamodb = new AWS.DynamoDB({endpoint:'dynamodb.us-west-1.amazonaws.com'});
 var docClient = new AWS.DynamoDB.DocumentClient();
-var util = require('util');
-var uuid = require('uuid');
-//var attr = require('dynamodb-data-types').AttributeValue;
+
+var util = require('util'), uuid = require('uuid');
 
 var db = {
-  //fields is optional
+  //get() get object by primary id
   get: function(table, id, fields, callback){
     var params = {
       Key:{id:id},
@@ -28,6 +27,7 @@ var db = {
       callback(err, resp);
     });
   },
+
   //fields is optional
   getByKey: function(table, keyName, key, value, fields, callback){
     var pkey = ":"+key;
