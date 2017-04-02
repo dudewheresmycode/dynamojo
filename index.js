@@ -17,9 +17,9 @@ var util = require('util'), uuid = require('uuid');
 
 var dynamojo = {
   /**
-   * dynamojo.get
-   * @desc Get an item by primary id.
-   * @alias dynamojo.get
+   * dynamojo.config
+   * @desc Configure AWS credentials and endpoint
+   * @alias dynamojo.config
    * @memberOf! dynamojo
    *
    * @param {object} options Your custom aws configure options

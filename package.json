@@ -25,5 +25,8 @@
   "homepage": "https://github.com/Callroom/dynamojo#readme",
   "dependencies": {
     "uuid": "^3.0.1"
+  },
+  "devDependencies": {
+    "jsdoc-to-markdown": "^3.0.0"
   }
 }
