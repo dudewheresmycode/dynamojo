@@ -16,6 +16,17 @@ var util = require('util'), uuid = require('uuid');
  */
 
 var dynamojo = {
+  /**
+   * dynamojo.get
+   * @desc Get an item by primary id.
+   * @alias dynamojo.get
+   * @memberOf! dynamojo
+   *
+   * @param {object} options Your custom aws configure options
+   */
+  config: function(options){
+    AWS.config.update(options);
+  },
  /**
   * dynamojo.get
   * @desc Get an item by primary id.

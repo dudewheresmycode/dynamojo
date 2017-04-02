@@ -1,5 +1,21 @@
 ## dynamojo
-A simplified nodejs client for DynamoDB on AWS.
+A super simple and lightweight DynamoDB client for nodejs.
+
+If you are unfamiliar with DynamoDB, checkout Amazon Web Services: https://aws.amazon.com/dynamodb/
+
+
+
+### Installation
+```bash
+npm install --save dynamojo
+```
+
+### Credentials
+We recommend you use a `~/.aws/credentials` file to configure access to your DynamoDB instance. For convenience, there is a `config` method available to pass an aws config object to:
+
+```javascript
+dynamojo.config({ "accessKeyId": "akid", "secretAccessKey": "secret", "region": "us-west-2" })
+```
 
 ### Basic Usage
 ```javascript
