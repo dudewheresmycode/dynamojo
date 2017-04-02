@@ -11,7 +11,9 @@
     "url": "git+https://github.com/Callroom/dynamojo.git"
   },
   "keywords": [
+    "nodejs",
     "dynamodb",
+    "dynamodb client",
     "aws",
     "nosql"
   ],

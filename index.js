@@ -1,14 +1,33 @@
-// var attr = require('dynamodb-data-types').AttributeValue;
-// var attrUpdate = require('dynamodb-data-types').AttributeValueUpdate;
-
 var AWS = require('aws-sdk');
-var dynamodb = new AWS.DynamoDB({endpoint:'dynamodb.us-west-1.amazonaws.com'});
+//var dynamodb = new AWS.DynamoDB();
 var docClient = new AWS.DynamoDB.DocumentClient();
 
 var util = require('util'), uuid = require('uuid');
 
-var db = {
-  //get() get object by primary id
+
+/**
+ * Dynamojo
+ *
+ * A simplified nodejs client for DynamoDB on AWS.
+ *
+ * @namespace dynamojo
+ * @type {Object}
+ * @version v1
+ */
+
+var dynamojo = {
+ /**
+  * dynamojo.get
+  * @desc Get an item by primary id.
+  * @alias dynamojo.get
+  * @memberOf! dynamojo
+  *
+  * @param {string} table The DynamoDB TableName
+  * @param {string} id The primary index value. Usually a the id UUID.
+  * @param {object=} fields (optional) Only return these fields.
+  * @param {callback} callback The callback that handles the response.
+  */
+
   get: function(table, id, fields, callback){
     var params = {
       Key:{id:id},
@@ -27,15 +46,26 @@ var db = {
       callback(err, resp);
     });
   },
-
-  //fields is optional
-  getByKey: function(table, keyName, key, value, fields, callback){
+  /**
+   * dynamojo.getByKey
+   * @desc Get an item by primary id.
+   * @alias dynamojo.getByKey
+   * @memberOf! dynamojo
+   *
+   * @param {string} table The DynamoDB TableName
+   * @param {string} indexName The DynamoDB IndexName
+   * @param {string} key DynamoDB key name
+   * @param {string} value DynamoDB key value
+   * @param {object=} fields (optional) Only return these fields.
+   * @param {callback} callback The callback that handles the response.
+   */
+  getByKey: function(table, indexName, key, value, fields, callback){
     var pkey = ":"+key;
     var eav = {};
     eav[pkey] = value;
     var params = {
       TableName: table,
-      IndexName: keyName,
+      IndexName: indexName,
       KeyConditionExpression: key+' = '+pkey,
       ExpressionAttributeValues: eav
     };
@@ -52,6 +82,16 @@ var db = {
       callback(err, item);
     });
   },
+
+  /**
+  * dynamojo.list
+  * @desc Lists all items in a table
+  * @alias dynamojo.list
+  * @memberOf! dynamojo
+  *
+  * @param {string} table DynamoDB TableName
+  * @param {callback} callback The callback that handles the response.
+  */
   list: function(table, callback){
     var params = {
       TableName: table
@@ -62,22 +102,30 @@ var db = {
       callback(err, item);
     });
   },
-  listByKey: function(table, keyName, key, value, qf, callback){
+
+  /**
+  * dynamojo.listByKey
+  * @desc Lists all items in a table
+  * @alias dynamojo.listByKey
+  * @memberOf! dynamojo
+  *
+  * @param {string} table The DynamoDB TableName
+  * @param {string} indexName The DynamoDB IndexName
+  * @param {string} key DynamoDB key name
+  * @param {string} value DynamoDB key value
+  * @param {object=} qf (optional) An optional query, passed as an object.
+  * @param {callback} callback The callback that handles the response.
+  */
+  listByKey: function(table, indexName, key, value, qf, callback){
 
     var eav = {};
     eav[":"+key] = value;
-
-    //var kcond = {};
-    //kcond[key] = {ComparisonOperator:'EQ', AttributeValueList:[value]};
-    //attr.wrap(value);
     var params = {
       TableName: table,
-      IndexName: keyName,
-      //KeyConditions: kcond
+      IndexName: indexName,
       KeyConditionExpression: key+' = :'+key,
       ExpressionAttributeValues: eav
     };
-    console.log(params);
 
     if(typeof qf=='object'){
       var fe = [];
@@ -89,9 +137,6 @@ var db = {
     }else if(typeof qf=='function'){
       callback = qf;
     }
-    console.log(params);
-
-
     docClient.query(params, function(err, data) {
       var resp = !err && data.hasOwnProperty("Items") ? data.Items : [];
       callback(err, resp);
@@ -107,16 +152,27 @@ var db = {
       callback(err, obj);
     });
   },
-  update: function(table, id, query, callback){
+
+  /**
+  * dynamojo.update
+  * @desc Update values for a single item by primary index.
+  * @alias dynamojo.update
+  * @memberOf! dynamojo
+  *
+  * @param {string} table The DynamoDB TableName
+  * @param {string} id The primary index value. Usually a the id UUID.
+  * @param {object} update The new item values, passed as an object.
+  * @param {callback} callback The callback that handles the response.
+  */
+  update: function(table, id, update, callback){
 
     //don't update the id again
-    if('id' in query) delete query.id;
-
+    if('id' in update) delete update.id;
     var exp = [];
     var eav = {};
-    Object.keys(query).forEach(function(key){
+    Object.keys(update).forEach(function(key){
       exp.push(key+" = :"+key);
-      eav[":"+key] = query[key];
+      eav[":"+key] = update[key];
     });
     var updateExp = util.format("set %s", exp.join(', '));
     var params = {
@@ -126,21 +182,10 @@ var db = {
         ExpressionAttributeValues: eav,
         ReturnValues: "UPDATED_NEW"
     };
-    console.log("Updating the item...");
     docClient.update(params, function(err, data) {
       callback(err, data);
     });
 
-    // var params = {
-    //   Key:{id:id},
-    //   TableName:table,
-    //   AttributeUpdates: attrUpdate.put(query)
-    // }
-    // console.log(params);
-    // dynamodb.updateItem(params, function(err, data) {
-    //   //var resp = data && data.Item ? attr.unwrap(data.Item) : null;
-    //   callback(err,  {data:data, params:params});
-    // });
   }
 };
-module.exports = db;
+module.exports = dynamojo;
