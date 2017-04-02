@@ -56,7 +56,7 @@ var db = {
     var params = {
       TableName: table
     };
-    docClient.query(params, function(err, data) {
+    docClient.scan(params, function(err, data) {
       if(err){ callback(err); return; }
       var item = data && data.hasOwnProperty('Items') ? data.Items : null;
       callback(err, item);
