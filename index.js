@@ -41,7 +41,7 @@ var dynamojo = {
 
   get: function(table, id, fields, callback){
     var params = {
-      Key:{id:id},
+      Key:(typeof id=='object' ? id : {id:id}),
       TableName:table
     }
 
@@ -198,7 +198,7 @@ var dynamojo = {
         callback(err);
         return;
       }
-      docClient.get({Key:(typeof id=='object' ? id : {id:id}), TableName:table}, function(err, item){
+      docClient.get({Key:(typeof id=='object' ? id : {id:id}), TableName:table}, function(err, data){
         var resp = data && data.hasOwnProperty("Item") ? data.Item : null;
         callback(err, resp);
       });
