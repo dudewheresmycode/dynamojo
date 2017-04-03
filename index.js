@@ -194,7 +194,14 @@ var dynamojo = {
         ReturnValues: "UPDATED_NEW"
     };
     docClient.update(params, function(err, data) {
-      callback(err, data);
+      if(err){
+        callback(err);
+        return;
+      }
+      docClient.get({Key:(typeof id=='object' ? id : {id:id}), TableName:table}, function(err, item){
+        var resp = data && data.hasOwnProperty("Item") ? data.Item : null;
+        callback(err, resp);
+      });
     });
 
   }
