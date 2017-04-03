@@ -171,7 +171,7 @@ var dynamojo = {
   * @memberOf! dynamojo
   *
   * @param {string} table The DynamoDB TableName
-  * @param {string} id The primary index value. Usually a the id UUID.
+  * @param {string|object} id The primary index value. Usually a the id UUID, but can be an object for sort keys
   * @param {object} update The new item values, passed as an object.
   * @param {callback} callback The callback that handles the response.
   */
@@ -188,7 +188,7 @@ var dynamojo = {
     var updateExp = util.format("set %s", exp.join(', '));
     var params = {
         TableName:table,
-        Key:{id:id},
+        Key:(typeof id=='object' ? id : {id:id}),
         UpdateExpression: updateExp,
         ExpressionAttributeValues: eav,
         ReturnValues: "UPDATED_NEW"
