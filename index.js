@@ -183,10 +183,12 @@ var dynamojo = {
     var eav = {};
     var range = [65,90];
     Object.keys(update).forEach(function(key,i){
-      var kl = String.fromCharCode(range[0]+i);
-      kl = (range[0]+i) <= 90 ? kl : kl+String.fromCharCode(range[0]+i);
-      kl = kl.toLowerCase();
-      exp.push(JSON.stringify({"#"+kl:key})+" = :"+key);
+      var kcode = (range[0]+i);
+      var kl = String.fromCharCode(kcode).toLowerCase();
+      kl = kcode > 90 ? kl+String.fromCharCode(kcode).toLowerCase() : kl;
+      var uobj = {};
+      uobj["#"+kl] = key;
+      exp.push(JSON.stringify(uobj)+" = :"+key);
       // exp.push(key+" = :"+kl);
       eav[":"+kl] = update[key];
     });
