@@ -182,8 +182,8 @@ var dynamojo = {
     var exp = [];
     var eav = {};
     Object.keys(update).forEach(function(key){
-      exp.push(key+" = :"+key);
-      eav[":"+key] = update[key];
+      exp.push(key+" = :x_"+key);
+      eav[":x_"+key] = update[key];
     });
     var updateExp = util.format("set %s", exp.join(', '));
     var params = {
