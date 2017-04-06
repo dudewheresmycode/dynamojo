@@ -186,10 +186,10 @@ var dynamojo = {
       var kcode = (range[0]+i);
       var kl = String.fromCharCode(kcode).toLowerCase();
       kl = kcode > 90 ? kl+String.fromCharCode(kcode).toLowerCase() : kl;
-      var uobj = {};
-      uobj["#"+kl] = key;
-      exp.push(JSON.stringify(uobj)+" = :"+kl);
-      // exp.push(key+" = :"+kl);
+      //var uobj = {};
+      //uobj["#"+kl] = key;
+      //exp.push(JSON.stringify(uobj)+" = :"+kl);
+      exp.push("#"+key+" = :"+kl);
       eav[":"+kl] = update[key];
     });
 
