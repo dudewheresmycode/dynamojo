@@ -181,6 +181,7 @@ var dynamojo = {
     if('id' in update) delete update.id;
     var exp = [];
     var eav = {};
+    var ean = {};
     var range = [65,90];
     Object.keys(update).forEach(function(key,i){
       var kcode = (range[0]+i);
@@ -190,6 +191,7 @@ var dynamojo = {
       //uobj["#"+kl] = key;
       //exp.push(JSON.stringify(uobj)+" = :"+kl);
       exp.push("#"+key+" = :"+kl);
+      ean["#"+key] = key;
       eav[":"+kl] = update[key];
     });
 
@@ -201,6 +203,7 @@ var dynamojo = {
         TableName:table,
         Key:(typeof id=='object' ? id : {id:id}),
         UpdateExpression: updateExp,
+        ExpressionAttributeNames: ean,
         ExpressionAttributeValues: eav,
         ReturnValues: "UPDATED_NEW"
     };
