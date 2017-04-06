@@ -189,7 +189,11 @@ var dynamojo = {
       exp.push(key+" = :"+kl);
       eav[":"+kl] = update[key];
     });
+
     var updateExp = util.format("set %s", exp.join(', '));
+    console.log("updateExp", updateExp);
+    console.log("EAV", eav);
+    
     var params = {
         TableName:table,
         Key:(typeof id=='object' ? id : {id:id}),
