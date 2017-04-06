@@ -184,16 +184,17 @@ var dynamojo = {
     var range = [65,90];
     Object.keys(update).forEach(function(key,i){
       var kl = String.fromCharCode(range[0]+i);
-      kl = kl <= 90 ? kl : kl+String.fromCharCode(range[0]+i);
-      //exp.push(JSON.stringify({"#c":key})+" = :"+key);
-      exp.push(key+" = :"+kl);
+      kl = (range[0]+i) <= 90 ? kl : kl+String.fromCharCode(range[0]+i);
+      kl = kl.toLowerCase();
+      exp.push(JSON.stringify({"#"+kl:key})+" = :"+key);
+      // exp.push(key+" = :"+kl);
       eav[":"+kl] = update[key];
     });
 
     var updateExp = util.format("set %s", exp.join(', '));
     console.log("updateExp", updateExp);
     console.log("EAV", eav);
-    
+
     var params = {
         TableName:table,
         Key:(typeof id=='object' ? id : {id:id}),
