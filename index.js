@@ -181,9 +181,13 @@ var dynamojo = {
     if('id' in update) delete update.id;
     var exp = [];
     var eav = {};
-    Object.keys(update).forEach(function(key){
-      exp.push(key+" = :x_"+key);
-      eav[":x_"+key] = update[key];
+    var range = [65,90];
+    Object.keys(update).forEach(function(key,i){
+      var kl = String.fromCharCode(range[0]+i);
+      kl = kl <= 90 ? kl : kl+String.fromCharCode(range[0]+i);
+      //exp.push(JSON.stringify({"#c":key})+" = :"+key);
+      exp.push(key+" = :"+kl);
+      eav[":"+kl] = update[key];
     });
     var updateExp = util.format("set %s", exp.join(', '));
     var params = {
