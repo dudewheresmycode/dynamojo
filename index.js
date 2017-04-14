@@ -153,6 +153,18 @@ var dynamojo = {
       callback(err, resp);
     });
   },
+
+  /**
+  * dynamojo.insert
+  * @desc Insert a new item into the table, also generates and returns a new UUID for the `id` key.
+  * @alias dynamojo.insert
+  * @memberOf! dynamojo
+  *
+  * @param {string} table The DynamoDB TableName
+  * @param {object} item The new item, passed as an object.
+  * @param {callback} callback The callback that handles the response.
+  */
+
   insert: function(table, obj, callback){
     obj.id = uuid();
     var params = {
@@ -218,6 +230,48 @@ var dynamojo = {
       });
     });
 
-  }
+  },
+
+
+  /**
+  * dynamojo.countByKey
+  * @desc Insert a new item into the table, also generates and returns a new UUID for the `id` key.
+  * @alias dynamojo.countByKey
+  * @memberOf! dynamojo
+  *
+  * @param {string} table The DynamoDB TableName
+  * @param {string} indexName The DynamoDB IndexName
+  * @param {string} key DynamoDB key name
+  * @param {string} value DynamoDB key value
+  * @param {object=} qf (optional) An optional query, passed as an object.
+  * @param {callback} callback The callback that handles the response.
+  */
+
+  countByKey: function(table, indexName, key, value, qf, callback){
+    var eav = {};
+    eav[":"+key] = value;
+    var params = {
+      TableName: table,
+      IndexName: indexName,
+      KeyConditionExpression: key+' = :'+key,
+      ExpressionAttributeValues: eav
+    };
+
+    if(typeof qf=='object'){
+      var fe = [];
+      Object.keys(qf).forEach(function(k){
+        params.ExpressionAttributeValues[":"+k] = qf[k];
+        fe.push( k+" = :"+k );
+      });
+      params.FilterExpression = fe.join(',');
+    }else if(typeof qf=='function'){
+      callback = qf;
+    }
+    docClient.query(params, function(err, data) {
+      var cnt = !err && data.hasOwnProperty("Items") ? data.Items.length : 0;
+      callback(err, cnt);
+    });
+  },
+
 };
 module.exports = dynamojo;
