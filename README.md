@@ -22,9 +22,13 @@ We recommend you use a `~/.aws/credentials` file to configure access to your Dyn
 ```javascript
 dynamojo.config({ "accessKeyId": "akid", "secretAccessKey": "secret", "region": "us-west-2" })
 ```
+---
 
+#### Documentation
 
-### Basic Usage
+Read the Full [Documentation](docs/README.md)
+
+#### Basic Usage
 ```javascript
 var dynamojo = require('dynamojo');
 
