@@ -1,11 +1,11 @@
 {
   "name": "dynamojo",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "./node_modules/jsdoc-to-markdown/bin/cli.js index.js > docs.md"
+    "docs": "./node_modules/jsdoc-to-markdown/bin/cli.js index.js > docs/README.md"
   },
   "repository": {
     "type": "git",

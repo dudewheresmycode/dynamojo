@@ -14,7 +14,9 @@ A simplified nodejs client for DynamoDB on AWS.
     * [.getByKey(table, indexName, key, value, [fields], callback)](#dynamojo.getByKey)
     * [.list(table, callback)](#dynamojo.list)
     * [.listByKey(table, indexName, key, value, [qf], callback)](#dynamojo.listByKey)
+    * [.insert(table, item, callback)](#dynamojo.insert)
     * [.update(table, id, update, callback)](#dynamojo.update)
+    * [.countByKey(table, indexName, key, value, [qf], callback)](#dynamojo.countByKey)
 
 <a name="dynamojo.config"></a>
 
@@ -85,6 +87,19 @@ Lists all items in a table
 | [qf] | <code>object</code> | (optional) An optional query, passed as an object. |
 | callback | <code>callback</code> | The callback that handles the response. |
 
+<a name="dynamojo.insert"></a>
+
+### dynamojo.insert(table, item, callback)
+Insert a new item into the table, also generates and returns a new UUID for the `id` key.
+
+**Kind**: static method of <code>[dynamojo](#dynamojo)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| table | <code>string</code> | The DynamoDB TableName |
+| item | <code>object</code> | The new item, passed as an object. |
+| callback | <code>callback</code> | The callback that handles the response. |
+
 <a name="dynamojo.update"></a>
 
 ### dynamojo.update(table, id, update, callback)
@@ -95,7 +110,23 @@ Update values for a single item by primary index.
 | Param | Type | Description |
 | --- | --- | --- |
 | table | <code>string</code> | The DynamoDB TableName |
-| id | <code>string</code> | The primary index value. Usually a the id UUID. |
+| id | <code>string</code> \| <code>object</code> | The primary index value. Usually a the id UUID, but can be an object for sort keys |
 | update | <code>object</code> | The new item values, passed as an object. |
+| callback | <code>callback</code> | The callback that handles the response. |
+
+<a name="dynamojo.countByKey"></a>
+
+### dynamojo.countByKey(table, indexName, key, value, [qf], callback)
+Insert a new item into the table, also generates and returns a new UUID for the `id` key.
+
+**Kind**: static method of <code>[dynamojo](#dynamojo)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| table | <code>string</code> | The DynamoDB TableName |
+| indexName | <code>string</code> | The DynamoDB IndexName |
+| key | <code>string</code> | DynamoDB key name |
+| value | <code>string</code> | DynamoDB key value |
+| [qf] | <code>object</code> | (optional) An optional query, passed as an object. |
 | callback | <code>callback</code> | The callback that handles the response. |
 
