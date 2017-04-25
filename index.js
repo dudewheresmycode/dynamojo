@@ -25,7 +25,8 @@ var dynamojo = {
    * @param {object} options Your custom aws configure options
    */
   config: function(options){
-    AWS.config.update(options);
+    //AWS.config.update(options);
+    docClient = new AWS.DynamoDB.DocumentClient(options);
   },
  /**
   * dynamojo.get
