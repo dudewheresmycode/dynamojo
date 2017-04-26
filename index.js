@@ -102,29 +102,16 @@ var dynamojo = {
   * @memberOf! dynamojo
   *
   * @param {string} table DynamoDB TableName
-  * @param {object=} qf (optional) An optional query, passed as an object.
   * @param {callback} callback The callback that handles the response.
   */
-  list: function(table, qf, callback){
+  list: function(table, callback){
     var params = {
-      TableName: table,
-      ExpressionAttributeValues: {}
+      TableName: table
     };
-
-    if(typeof qf=='object'){
-      var fe = [];
-      Object.keys(qf).forEach(function(k){
-        params.ExpressionAttributeValues[":"+k] = qf[k];
-        fe.push( k+" = :"+k );
-      });
-      params.FilterExpression = fe.join(',');
-    }else if(typeof qf=='function'){
-      callback = qf;
-    }
-    docClient.query(params, function(err, data) {
+    docClient.scan(params, function(err, data) {
       if(err){ callback(err); return; }
-      var items = data && data.hasOwnProperty('Items') ? data.Items : [];
-      callback(err, items);
+      var item = data && data.hasOwnProperty('Items') ? data.Items : null;
+      callback(err, item);
     });
   },
 
