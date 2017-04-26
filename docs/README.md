@@ -12,7 +12,7 @@ A simplified nodejs client for DynamoDB on AWS.
     * [.config(options)](#dynamojo.config)
     * [.get(table, id, [fields], callback)](#dynamojo.get)
     * [.getByKey(table, indexName, key, value, [fields], callback)](#dynamojo.getByKey)
-    * [.list(table, [qf], callback)](#dynamojo.list)
+    * [.list(table, callback)](#dynamojo.list)
     * [.listByKey(table, indexName, key, value, [qf], callback)](#dynamojo.listByKey)
     * [.insert(table, item, callback)](#dynamojo.insert)
     * [.update(table, id, update, callback)](#dynamojo.update)
@@ -61,7 +61,7 @@ Get an item by primary id.
 
 <a name="dynamojo.list"></a>
 
-### dynamojo.list(table, [qf], callback)
+### dynamojo.list(table, callback)
 Lists all items in a table
 
 **Kind**: static method of <code>[dynamojo](#dynamojo)</code>  
@@ -69,7 +69,6 @@ Lists all items in a table
 | Param | Type | Description |
 | --- | --- | --- |
 | table | <code>string</code> | DynamoDB TableName |
-| [qf] | <code>object</code> | (optional) An optional query, passed as an object. |
 | callback | <code>callback</code> | The callback that handles the response. |
 
 <a name="dynamojo.listByKey"></a>
