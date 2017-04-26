@@ -107,7 +107,8 @@ var dynamojo = {
   */
   list: function(table, qf, callback){
     var params = {
-      TableName: table
+      TableName: table,
+      ExpressionAttributeValues: {}
     };
 
     if(typeof qf=='object'){
