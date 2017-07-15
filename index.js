@@ -167,7 +167,7 @@ var dynamojo = {
   */
 
   insert: function(table, obj, callback){
-    obj.id = uuid();
+    if(typeof obj.id=='undefined'){ obj.id = uuid(); }
     var params = {
       TableName : table,
       Item: obj
