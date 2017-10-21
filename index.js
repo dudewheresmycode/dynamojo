@@ -236,7 +236,7 @@ var dynamojo = {
   /**
    * dynamojo.remove
    * @desc Get an item by primary id.
-   * @alias dynamojo.get
+   * @alias dynamojo.remove
    * @memberOf! dynamojo
    *
    * @param {string} table The DynamoDB TableName
