@@ -118,7 +118,7 @@ Update values for a single item by primary index.
 <a name="dynamojo.remove"></a>
 
 ### dynamojo.remove(table, id, callback)
-Get an item by primary id.
+Deletes an item by primary id.
 
 **Kind**: static method of <code>[dynamojo](#dynamojo)</code>  
 
