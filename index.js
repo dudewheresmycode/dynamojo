@@ -235,7 +235,7 @@ var dynamojo = {
 
   /**
    * dynamojo.remove
-   * @desc Get an item by primary id.
+   * @desc Deletes an item by primary id.
    * @alias dynamojo.remove
    * @memberOf! dynamojo
    *
