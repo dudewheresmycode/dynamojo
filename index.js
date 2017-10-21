@@ -233,6 +233,28 @@ var dynamojo = {
 
   },
 
+  /**
+   * dynamojo.remove
+   * @desc Get an item by primary id.
+   * @alias dynamojo.get
+   * @memberOf! dynamojo
+   *
+   * @param {string} table The DynamoDB TableName
+   * @param {string} id The primary index value. Usually a the id UUID.
+   * @param {callback} callback The callback that handles the response.
+   */
+
+   remove: function(table, id, callback){
+     var params = {
+       Key:(typeof id=='object' ? id : {id:id}),
+       TableName:table
+     }
+     docClient.delete(params, function(err, data) {
+       //var resp = data.Item ? data.Item : null;
+      //  var resp = data && data.hasOwnProperty("Item") ? data.Item : null;
+       callback(err, data);
+     });
+   },
 
   /**
   * dynamojo.countByKey

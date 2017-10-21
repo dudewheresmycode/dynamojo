@@ -16,6 +16,7 @@ A simplified nodejs client for DynamoDB on AWS.
     * [.listByKey(table, indexName, key, value, [qf], callback)](#dynamojo.listByKey)
     * [.insert(table, item, callback)](#dynamojo.insert)
     * [.update(table, id, update, callback)](#dynamojo.update)
+    * [.get(table, id, callback)](#dynamojo.get)
     * [.countByKey(table, indexName, key, value, [qf], callback)](#dynamojo.countByKey)
 
 <a name="dynamojo.config"></a>
@@ -112,6 +113,19 @@ Update values for a single item by primary index.
 | table | <code>string</code> | The DynamoDB TableName |
 | id | <code>string</code> \| <code>object</code> | The primary index value. Usually a the id UUID, but can be an object for sort keys |
 | update | <code>object</code> | The new item values, passed as an object. |
+| callback | <code>callback</code> | The callback that handles the response. |
+
+<a name="dynamojo.get"></a>
+
+### dynamojo.get(table, id, callback)
+Get an item by primary id.
+
+**Kind**: static method of <code>[dynamojo](#dynamojo)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| table | <code>string</code> | The DynamoDB TableName |
+| id | <code>string</code> | The primary index value. Usually a the id UUID. |
 | callback | <code>callback</code> | The callback that handles the response. |
 
 <a name="dynamojo.countByKey"></a>
