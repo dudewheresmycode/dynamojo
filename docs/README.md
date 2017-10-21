@@ -16,7 +16,7 @@ A simplified nodejs client for DynamoDB on AWS.
     * [.listByKey(table, indexName, key, value, [qf], callback)](#dynamojo.listByKey)
     * [.insert(table, item, callback)](#dynamojo.insert)
     * [.update(table, id, update, callback)](#dynamojo.update)
-    * [.get(table, id, callback)](#dynamojo.get)
+    * [.remove(table, id, callback)](#dynamojo.remove)
     * [.countByKey(table, indexName, key, value, [qf], callback)](#dynamojo.countByKey)
 
 <a name="dynamojo.config"></a>
@@ -115,9 +115,9 @@ Update values for a single item by primary index.
 | update | <code>object</code> | The new item values, passed as an object. |
 | callback | <code>callback</code> | The callback that handles the response. |
 
-<a name="dynamojo.get"></a>
+<a name="dynamojo.remove"></a>
 
-### dynamojo.get(table, id, callback)
+### dynamojo.remove(table, id, callback)
 Get an item by primary id.
 
 **Kind**: static method of <code>[dynamojo](#dynamojo)</code>  
