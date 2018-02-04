@@ -276,11 +276,11 @@ var dynamojo = {
       ReturnValues: "UPDATED_NEW"
     };
 
-    if(Array.isArray(fields)){
-      params.AttributesToGet = fields;
-    }else if(typeof fields=='function'){
-      callback = fields;
-    }
+    // if(Array.isArray(fields)){
+    //   params.AttributesToGet = fields;
+    // }else if(typeof fields=='function'){
+    //   callback = fields;
+    // }
 
     docClient.update(params, function(err, data) {
       if(err){ callback(err); return; }
