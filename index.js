@@ -248,7 +248,7 @@ var dynamojo = {
   updateByKey: function(table, indexName, key, value, update, callback){
     var pkey = ":"+key;
     var eav = {};
-    eav[pkey] = value;
+    // eav[pkey] = value;
 
     if('id' in update) delete update.id;
     var exp = [];
@@ -269,7 +269,9 @@ var dynamojo = {
     var params = {
       TableName: table,
       IndexName: indexName,
-      KeyConditionExpression: key+' = '+pkey,
+      Key: {key:value},
+      // Key:(typeof id=='object' ? id : {id:id}),
+      // KeyConditionExpression: key+' = '+pkey,
       UpdateExpression: updateExp,
       ExpressionAttributeNames: ean,
       ExpressionAttributeValues: eav,
