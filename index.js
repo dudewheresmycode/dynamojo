@@ -233,8 +233,8 @@ var dynamojo = {
 
   },
   /**
-   * dynamojo.getByKey
-   * @desc Get an item by primary id.
+   * dynamojo.updateByKey
+   * @desc Update an item by using a GSI index.
    * @alias dynamojo.updateByKey
    * @memberOf! dynamojo
    *
@@ -246,48 +246,8 @@ var dynamojo = {
    * @param {callback} callback The callback that handles the response.
    */
   updateByKey: function(table, indexName, key, value, update, callback){
-    var pkey = ":"+key;
-    var eav = {};
-    // eav[pkey] = value;
-
-    if('id' in update) delete update.id;
-    var exp = [];
-    // var eav = {};
-    var ean = {};
-    var range = [65,90];
-    Object.keys(update).forEach(function(key,i){
-      var kcode = (range[0]+i);
-      var kl = String.fromCharCode(kcode).toLowerCase();
-      kl = kcode > 90 ? kl+String.fromCharCode(kcode).toLowerCase() : kl;
-      exp.push("#"+key+" = :"+kl);
-      ean["#"+key] = key;
-      eav[":"+kl] = update[key];
-    });
-
-    var updateExp = util.format("set %s", exp.join(', '));
-
-    var params = {
-      TableName: table,
-      IndexName: indexName,
-      Key: {key:value},
-      // Key:(typeof id=='object' ? id : {id:id}),
-      // KeyConditionExpression: key+' = '+pkey,
-      UpdateExpression: updateExp,
-      ExpressionAttributeNames: ean,
-      ExpressionAttributeValues: eav,
-      ReturnValues: "UPDATED_NEW"
-    };
-
-    // if(Array.isArray(fields)){
-    //   params.AttributesToGet = fields;
-    // }else if(typeof fields=='function'){
-    //   callback = fields;
-    // }
-
-    docClient.update(params, function(err, data) {
-      if(err){ callback(err); return; }
-      var item = data && data.hasOwnProperty('Items') ? data.Items[0] : null;
-      callback(err, item);
+    dynamojo.getByKey(table, indexName, key, value, function(err,item){
+      dynamojo.update(item.id, update, callback);
     });
   },
 
