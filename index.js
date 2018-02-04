@@ -247,7 +247,7 @@ var dynamojo = {
    */
   updateByKey: function(table, indexName, key, value, update, callback){
     dynamojo.getByKey(table, indexName, key, value, function(err,item){
-      dynamojo.update(item.id, update, callback);
+      dynamojo.update(table, item.id, update, callback);
     });
   },
 
