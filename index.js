@@ -313,6 +313,20 @@ var dynamojo = {
       callback(err, cnt);
     });
   },
+
+  /**
+  * dynamojo.scan
+  * @desc Perform a raw scan using the DocumentClient
+  * @alias dynamojo.scan
+  * @memberOf! dynamojo
+  *
+  * @param {object} query (optional) A query, passed as an object.
+  * @param {callback} callback The callback that handles the response.
+  */
+  scan: function(query, callback){
+    docClient.scan(query, callback);
+  },
+
   /**
   * dynamojo.query
   * @desc Perform a raw query using the DocumentClient
@@ -322,8 +336,6 @@ var dynamojo = {
   * @param {object} query (optional) A query, passed as an object.
   * @param {callback} callback The callback that handles the response.
   */
-
-
   query: function(query, callback){
     docClient.query(query, callback);
   }

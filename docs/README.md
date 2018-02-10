@@ -19,6 +19,7 @@ A simplified nodejs client for DynamoDB on AWS.
     * [.updateByKey(table, indexName, key, value, update, callback)](#dynamojo.updateByKey)
     * [.remove(table, id, callback)](#dynamojo.remove)
     * [.countByKey(table, indexName, key, value, [qf], callback)](#dynamojo.countByKey)
+    * [.scan(query, callback)](#dynamojo.scan)
     * [.query(query, callback)](#dynamojo.query)
 
 <a name="dynamojo.config"></a>
@@ -160,6 +161,18 @@ Insert a new item into the table, also generates and returns a new UUID for the 
 | key | <code>string</code> | DynamoDB key name |
 | value | <code>string</code> | DynamoDB key value |
 | [qf] | <code>object</code> | (optional) An optional filter, passed as an object. |
+| callback | <code>callback</code> | The callback that handles the response. |
+
+<a name="dynamojo.scan"></a>
+
+### dynamojo.scan(query, callback)
+Perform a raw scan using the DocumentClient
+
+**Kind**: static method of [<code>dynamojo</code>](#dynamojo)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| query | <code>object</code> | (optional) A query, passed as an object. |
 | callback | <code>callback</code> | The callback that handles the response. |
 
 <a name="dynamojo.query"></a>
