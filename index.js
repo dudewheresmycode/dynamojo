@@ -284,7 +284,7 @@ var dynamojo = {
   * @param {string} indexName The DynamoDB IndexName
   * @param {string} key DynamoDB key name
   * @param {string} value DynamoDB key value
-  * @param {object=} qf (optional) An optional query, passed as an object.
+  * @param {object=} qf (optional) An optional filter, passed as an object.
   * @param {callback} callback The callback that handles the response.
   */
 
@@ -313,6 +313,19 @@ var dynamojo = {
       callback(err, cnt);
     });
   },
+  /**
+  * dynamojo.query
+  * @desc Perform a raw query using the DocumentClient
+  * @alias dynamojo.query
+  * @memberOf! dynamojo
+  *
+  * @param {object} query (optional) A query, passed as an object.
+  * @param {callback} callback The callback that handles the response.
+  */
 
+
+  query: function(query, callback){
+    docClient.query(query, callback);
+  }
 };
 module.exports = dynamojo;
