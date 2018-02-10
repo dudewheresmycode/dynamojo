@@ -16,15 +16,17 @@ A simplified nodejs client for DynamoDB on AWS.
     * [.listByKey(table, indexName, key, value, [qf], callback)](#dynamojo.listByKey)
     * [.insert(table, item, callback)](#dynamojo.insert)
     * [.update(table, id, update, callback)](#dynamojo.update)
+    * [.updateByKey(table, indexName, key, value, update, callback)](#dynamojo.updateByKey)
     * [.remove(table, id, callback)](#dynamojo.remove)
     * [.countByKey(table, indexName, key, value, [qf], callback)](#dynamojo.countByKey)
+    * [.query(query, callback)](#dynamojo.query)
 
 <a name="dynamojo.config"></a>
 
 ### dynamojo.config(options)
 Configure AWS credentials and endpoint
 
-**Kind**: static method of <code>[dynamojo](#dynamojo)</code>  
+**Kind**: static method of [<code>dynamojo</code>](#dynamojo)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -35,7 +37,7 @@ Configure AWS credentials and endpoint
 ### dynamojo.get(table, id, [fields], callback)
 Get an item by primary id.
 
-**Kind**: static method of <code>[dynamojo](#dynamojo)</code>  
+**Kind**: static method of [<code>dynamojo</code>](#dynamojo)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -49,7 +51,7 @@ Get an item by primary id.
 ### dynamojo.getByKey(table, indexName, key, value, [fields], callback)
 Get an item by primary id.
 
-**Kind**: static method of <code>[dynamojo](#dynamojo)</code>  
+**Kind**: static method of [<code>dynamojo</code>](#dynamojo)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -65,7 +67,7 @@ Get an item by primary id.
 ### dynamojo.list(table, callback)
 Lists all items in a table
 
-**Kind**: static method of <code>[dynamojo](#dynamojo)</code>  
+**Kind**: static method of [<code>dynamojo</code>](#dynamojo)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -77,7 +79,7 @@ Lists all items in a table
 ### dynamojo.listByKey(table, indexName, key, value, [qf], callback)
 Lists all items in a table
 
-**Kind**: static method of <code>[dynamojo](#dynamojo)</code>  
+**Kind**: static method of [<code>dynamojo</code>](#dynamojo)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -93,7 +95,7 @@ Lists all items in a table
 ### dynamojo.insert(table, item, callback)
 Insert a new item into the table, also generates and returns a new UUID for the `id` key.
 
-**Kind**: static method of <code>[dynamojo](#dynamojo)</code>  
+**Kind**: static method of [<code>dynamojo</code>](#dynamojo)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -106,7 +108,7 @@ Insert a new item into the table, also generates and returns a new UUID for the 
 ### dynamojo.update(table, id, update, callback)
 Update values for a single item by primary index.
 
-**Kind**: static method of <code>[dynamojo](#dynamojo)</code>  
+**Kind**: static method of [<code>dynamojo</code>](#dynamojo)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -115,12 +117,28 @@ Update values for a single item by primary index.
 | update | <code>object</code> | The new item values, passed as an object. |
 | callback | <code>callback</code> | The callback that handles the response. |
 
+<a name="dynamojo.updateByKey"></a>
+
+### dynamojo.updateByKey(table, indexName, key, value, update, callback)
+Update an item by using a GSI index.
+
+**Kind**: static method of [<code>dynamojo</code>](#dynamojo)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| table | <code>string</code> | The DynamoDB TableName |
+| indexName | <code>string</code> | The DynamoDB IndexName |
+| key | <code>string</code> | DynamoDB key name |
+| value | <code>string</code> | DynamoDB key value |
+| update | <code>object</code> | The key/values to update |
+| callback | <code>callback</code> | The callback that handles the response. |
+
 <a name="dynamojo.remove"></a>
 
 ### dynamojo.remove(table, id, callback)
 Deletes an item by primary id.
 
-**Kind**: static method of <code>[dynamojo](#dynamojo)</code>  
+**Kind**: static method of [<code>dynamojo</code>](#dynamojo)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -133,7 +151,7 @@ Deletes an item by primary id.
 ### dynamojo.countByKey(table, indexName, key, value, [qf], callback)
 Insert a new item into the table, also generates and returns a new UUID for the `id` key.
 
-**Kind**: static method of <code>[dynamojo](#dynamojo)</code>  
+**Kind**: static method of [<code>dynamojo</code>](#dynamojo)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -141,6 +159,18 @@ Insert a new item into the table, also generates and returns a new UUID for the 
 | indexName | <code>string</code> | The DynamoDB IndexName |
 | key | <code>string</code> | DynamoDB key name |
 | value | <code>string</code> | DynamoDB key value |
-| [qf] | <code>object</code> | (optional) An optional query, passed as an object. |
+| [qf] | <code>object</code> | (optional) An optional filter, passed as an object. |
+| callback | <code>callback</code> | The callback that handles the response. |
+
+<a name="dynamojo.query"></a>
+
+### dynamojo.query(query, callback)
+Perform a raw query using the DocumentClient
+
+**Kind**: static method of [<code>dynamojo</code>](#dynamojo)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| query | <code>object</code> | (optional) A query, passed as an object. |
 | callback | <code>callback</code> | The callback that handles the response. |
 
