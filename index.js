@@ -142,8 +142,8 @@ var dynamojo = {
     if(typeof qf=='object'){
       var fe = [];
       Object.keys(qf).forEach(function(k){
-        params.ExpressionAttributeValues[":"+k] = qf[k];
-        fe.push( k+" = :"+k );
+        params.ExpressionAttributeValues[":dm"+k] = qf[k];
+        fe.push( k+" = :dm"+k );
       });
       params.FilterExpression = fe.join(',');
     }else if(typeof qf=='function'){
