@@ -131,11 +131,11 @@ var dynamojo = {
   listByKey: function(table, indexName, key, value, qf, callback){
 
     var eav = {};
-    eav[":"+key] = value;
+    eav[":dm"+key] = value;
     var params = {
       TableName: table,
       IndexName: indexName,
-      KeyConditionExpression: key+' = :'+key,
+      KeyConditionExpression: key+' = :dm'+key,
       ExpressionAttributeValues: eav
     };
 
