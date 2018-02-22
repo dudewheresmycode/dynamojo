@@ -72,9 +72,9 @@ var dynamojo = {
    * @param {callback} callback The callback that handles the response.
    */
   getByKey: function(table, indexName, key, value, fields, callback){
-    var pkey = ":"+key;
+    var pkey = ":dm"+key;
     var eav = {};
-    eav[pkey] = value;
+    eav["dm"+pkey] = value;
     var params = {
       TableName: table,
       IndexName: indexName,
