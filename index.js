@@ -141,9 +141,12 @@ var dynamojo = {
 
     if(typeof qf=='object'){
       var fe = [];
-      Object.keys(qf).forEach(function(k){
+      params.ExpressionAttributeNames = {};
+      Object.keys(qf).forEach(function(k,i){
+        var kn = "#k"+i;
+        params.ExpressionAttributeNames[kn] = k;
         params.ExpressionAttributeValues[":dm"+k] = qf[k];
-        fe.push( k+" = :dm"+k );
+        fe.push( kn+" = :dm"+k );
       });
       params.FilterExpression = fe.join(',');
     }else if(typeof qf=='function'){
