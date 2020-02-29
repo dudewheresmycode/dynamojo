@@ -74,7 +74,7 @@ var dynamojo = {
   getByKey: function(table, indexName, key, value, fields, callback){
     var pkey = ":dm"+key;
     var eav = {};
-    eav["dm"+pkey] = value;
+    eav[pkey] = value;
     var params = {
       TableName: table,
       IndexName: indexName,
